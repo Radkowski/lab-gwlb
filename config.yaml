@@ -1,0 +1,90 @@
+Parameters:
+
+  DeploymentPrefix: "PA-PoC"
+
+  Region: "eu-west-2"
+  
+  VPCs:
+    Appliance-VPC:
+      Name: Appliance
+      Type: Hub
+      CIDR: "10.0.0.0/16"
+      PublicSubnetNames:
+        - Pub-1
+        - Pub-2 
+      PrivateSubnetNames:
+        - app-az1
+        - app-az2
+        - gwlbe-az1
+        - gwlbe-az2
+        - tgw-az1
+        - tgw-az2
+      VirtApp:
+        - app-az1
+        - app-az2
+      TGWConnection:
+        - tgw-az1
+        - tgw-az2
+      GWLBConnection:
+        - gwlbe-az1
+        - gwlbe-az2    
+
+    Spoke1-Con-VPC:
+      Name: Spoke1-Con
+      Type: Spoke
+      CIDR: "10.1.0.0/16"
+      PrivateSubnetNames:
+        - someprivate1
+        - someprivate2
+        - spk1-tgw-az1
+        - spk1-tgw-az2
+      TGWConnection:
+        - spk1-tgw-az1
+        - spk1-tgw-az2
+
+
+    Spoke2-NonCon-VPC:
+      Name: Spoke2-NonCon
+      Type: Spoke
+      CIDR: "172.16.0.0/16"
+      PublicSubnetNames:
+        - somepublic1
+        - somepublic2
+      PrivateSubnetNames:
+        - someprivate1
+        - someprivate2
+        - someprivate3
+        - someprivate4
+
+
+    Spoke3-NonCon-VPC:
+      Name: Spoke3-NonCon
+      Type: Spoke
+      CIDR: "172.16.0.0/16"
+      PublicSubnetNames:
+        - Sierra
+        - Tango 
+      PrivateSubnetNames:
+        - Uniform
+        - Victor
+        - Whiskey
+        - Xray
+
+        
+  Tgw:
+    Name: "CentralTGW"
+    Summarise_connected: "10.0.0.0/8"
+
+  Gwlb:
+    Name: "GWLBE"
+    Subnets:
+      - gwlbe-az1
+      - gwlbe-az2
+
+    
+  AuthTags:
+    Owner: "me@radkowski.pro"
+    Env: Dev
+    Deployment-method: TFE
+  
+ 
